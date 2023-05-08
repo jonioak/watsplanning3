@@ -3,11 +3,21 @@ package com.example.watsplanning3;
 import java.util.ArrayList;
 
 public class ActiviteitenLijst {
-    static ActiviteitenLijst instance;
+    private static ActiviteitenLijst instance;
     private ArrayList<Activiteit> activiteitenLijst = new ArrayList<>();
 
-    public static ActiviteitenLijst getInstance(){
-        return instance;
+    ActiviteitenLijst(){
+        NormaalActiviteit a = new NormaalActiviteit();
+        a.setNaam("Schoonmaken");
+        a.setDuratie(60);
+        a.setAfbeelding(null);
+        Routine b = new Routine();
+        b.setNaam("Hardlopen");
+        b.setDuratie(60);
+        b.setVasteTijd(2);
+        b.setAfbeelding(null);
+        activiteitenLijst.add(a);
+        activiteitenLijst.add(b);
     }
 
     public ArrayList<Activiteit> getActiviteitenLijst() {
@@ -20,5 +30,10 @@ public class ActiviteitenLijst {
 
     public void deleteActiviteit(Activiteit activiteit){
         activiteitenLijst.remove(activiteit);
+    }
+
+    public static ActiviteitenLijst getInstance() {
+        if (instance == null) instance = new ActiviteitenLijst();
+        return instance;
     }
 }

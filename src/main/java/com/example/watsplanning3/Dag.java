@@ -2,10 +2,15 @@ package com.example.watsplanning3;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.Scanner;
 public class Dag {
     private Date datum;
     private ArrayList<Moment> momenten = new ArrayList<>();
+
+    public void editDag(){
+        Scanner scanner = new Scanner(System.in);
+
+    }
 
     public Date getDatum(){
         return datum;
@@ -15,9 +20,10 @@ public class Dag {
         this.datum = datum;
     }
 
-    public void createMoment(){
+    public void createMoment(int beginTijd, Activiteit activiteit){
         Moment moment = new Moment();
-
+        moment.setActiviteit(activiteit);
+        moment.setBeginTijd(beginTijd);
         momenten.add(moment);
     }
 
