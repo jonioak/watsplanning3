@@ -5,6 +5,9 @@ public class Moment {
     private int beginTijd;
     private int eindTijd;
 
+    public Activiteit getActiviteit(){
+        return activiteit;
+    }
     public void setActiviteit(Activiteit activiteit){
         this.activiteit = activiteit;
     }

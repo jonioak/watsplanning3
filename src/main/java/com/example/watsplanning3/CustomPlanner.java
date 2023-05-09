@@ -31,8 +31,11 @@ public class CustomPlanner implements Planner{
                     int dag = scanner.nextInt();
                     if(dag <= DagLijst.getInstance().getDagLijst().size() && dag>0){
                         System.out.println(dag);
+                        DagLijst.getInstance().getDagLijst().get(dag-1).editDag();
                     }
-                    System.out.println("Geen geldige dag");
+                    else{
+                        System.out.println("Geen geldige dag");
+                    }
 
 
             }
@@ -50,6 +53,7 @@ public class CustomPlanner implements Planner{
         Dag dag = new Dag();
         dag.setDatum(date);
         dag.editDag();
+        DagLijst.getInstance().getDagLijst().add(dag);
     }
 
     @Override

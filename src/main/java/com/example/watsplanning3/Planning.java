@@ -8,6 +8,7 @@ public class Planning {
     private Dag dag;
 
     public void displayPlanning() {
+        System.out.println("Kies een dag uit");
 
     }
 

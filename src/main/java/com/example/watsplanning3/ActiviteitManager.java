@@ -21,7 +21,7 @@ public class ActiviteitManager {
                 case 0:
                     break;
                 case 1:
-                    printActiviteiten();
+                    ActiviteitenLijst.getInstance().printActiviteiten();
                     break;
                 case 2:
                     System.out.println("Naam van activiteit");
@@ -52,16 +52,7 @@ public class ActiviteitManager {
         }
     }
 
-    public void printActiviteiten(){
-        for (Activiteit activiteit : activiteitenLijst) {
-            System.out.println("Activiteit: " + activiteit.getNaam());
-            System.out.println("Duratie: " + activiteit.getDuratie());
-            if (activiteit instanceof Routine){
-                System.out.println("Routine tijd: " + ((Routine) activiteit).getVasteTijd());
-            }
-            System.out.println();
-        }
-    }
+
 
     public void createActiviteit(String naam, int duratie, Image afbeelding){
         NormaalActiviteit activiteit = new NormaalActiviteit();

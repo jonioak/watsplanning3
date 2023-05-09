@@ -32,6 +32,19 @@ public class ActiviteitenLijst {
         activiteitenLijst.remove(activiteit);
     }
 
+    public void printActiviteiten(){
+        int i=1;
+        for (Activiteit activiteit : activiteitenLijst) {
+            System.out.println(i + " Activiteit: " + activiteit.getNaam());
+            System.out.println("Duratie: " + activiteit.getDuratie());
+            if (activiteit instanceof Routine){
+                System.out.println("Routine tijd: " + ((Routine) activiteit).getVasteTijd());
+            }
+            System.out.println();
+            i++;
+        }
+    }
+
     public static ActiviteitenLijst getInstance() {
         if (instance == null) instance = new ActiviteitenLijst();
         return instance;
