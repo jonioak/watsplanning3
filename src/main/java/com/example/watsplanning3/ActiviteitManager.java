@@ -27,7 +27,7 @@ public class ActiviteitManager {
                     System.out.println("Naam van activiteit");
                     scanner.nextLine();
                     String naam = scanner.nextLine();
-                    System.out.println("Duratie van activiteit");
+                    System.out.println("Duratie van activiteit in minuten");
                     int duratie = scanner.nextInt();
                     Image a = null;
                     createActiviteit(naam,duratie,a);
@@ -36,14 +36,25 @@ public class ActiviteitManager {
                     System.out.println("Naam van activiteit");
                     scanner.nextLine();
                     naam = scanner.nextLine();
-                    System.out.println("Duratie van activiteit");
+                    System.out.println("Duratie van activiteit in minuten");
                     duratie = scanner.nextInt();
                     a = null;
                     System.out.println("Vaste tijd van activiteit");
-                    int vasteTijd = scanner.nextInt();
-                    createRoutine(naam,duratie,a,vasteTijd);
+                    while(true){
+                        Tijd vasteTijd = new Tijd(scanner.nextInt());
+                        if(vasteTijd.getMinuut() < 59 && vasteTijd.getUur() < 23){
+                            createRoutine(naam,duratie,a,vasteTijd);
+                            break;
+                        }
+                        System.out.println("Ongeldig tijdstip");
+                    }
+
                     break;
                 case 4:
+                    System.out.println("Selecteer een activeit om te verwijderen");
+                    ActiviteitenLijst.getInstance().printActiviteiten();
+                    int activiteit = scanner.nextInt();
+                    deleteActiviteit(activiteit);
                     break;
                 default:
                     System.out.println("Probeer het opnieuw");
@@ -62,17 +73,24 @@ public class ActiviteitManager {
         activiteitenLijst.add(activiteit);
     }
 
-    public void createRoutine(String naam, int duratie, Image afbeelding, int vasteTijd){
+    public void createRoutine(String naam, int duratie, Image afbeelding, Tijd vasteTijd){
         Routine activiteit = new Routine();
         activiteit.setNaam(naam);
         activiteit.setDuratie(duratie);
         activiteit.setAfbeelding(afbeelding);
+
         activiteit.setVasteTijd(vasteTijd);
         activiteitenLijst.add(activiteit);
     }
 
-    public void deleteActiviteit(Activiteit activiteit){
-        activiteitenLijst.remove(activiteit);
 
+    public void deleteActiviteit(int activiteit){
+        if (activiteit <= activiteitenLijst.size()){
+            System.out.println(activiteitenLijst.get(activiteit-1).getNaam() + " is verwijderd");
+            activiteitenLijst.remove(activiteit-1);
+        }
+        else{
+            System.out.println("Ongeldige invoer");
+        }
     }
 }

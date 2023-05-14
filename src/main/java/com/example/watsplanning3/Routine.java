@@ -1,13 +1,13 @@
 package com.example.watsplanning3;
 
 public class Routine extends Activiteit{
-    private int vasteTijd;
+    private Tijd vasteTijd;
 
-    public int getVasteTijd() {
+    public Tijd getVasteTijd() {
         return vasteTijd;
     }
 
-    public void setVasteTijd(int vasteTijd){
+    public void setVasteTijd(Tijd vasteTijd){
         this.vasteTijd = vasteTijd;
     }
 

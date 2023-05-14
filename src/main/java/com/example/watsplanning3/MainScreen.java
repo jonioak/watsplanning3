@@ -5,7 +5,6 @@ public class MainScreen {
     Scanner scanner = new Scanner(System.in);
     ActiviteitManager activiteitManager = new ActiviteitManager();
     CustomPlanner customPlanner = new CustomPlanner();
-    Planning planning = new Planning();
 
     MainScreen(){
         chooseOptie();
@@ -35,7 +34,7 @@ public class MainScreen {
                     System.out.println("Kan nog niet");
                     break;
                 case 4:
-                    planning.displayPlanning();
+                    Planning.chooseOptie(scanner);
                     break;
                 default:
                     System.out.println("Ongeldige optie");

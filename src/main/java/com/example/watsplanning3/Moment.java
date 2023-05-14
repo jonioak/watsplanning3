@@ -2,8 +2,8 @@ package com.example.watsplanning3;
 
 public class Moment {
     private Activiteit activiteit;
-    private int beginTijd;
-    private int eindTijd;
+    private Tijd beginTijd;
+    private Tijd eindTijd;
 
     public Activiteit getActiviteit(){
         return activiteit;
@@ -12,18 +12,17 @@ public class Moment {
         this.activiteit = activiteit;
     }
 
-    public int getBeginTijd() {
+    public Tijd getBeginTijd() {
         return beginTijd;
     }
-    public void setBeginTijd(int beginTijd){
+    public void setBeginTijd(Tijd beginTijd){
         this.beginTijd = beginTijd;
-        this.eindTijd = beginTijd + activiteit.getDuratie();
     }
 
-    public int getEindTijd() {
+    public Tijd getEindTijd() {
         return eindTijd;
     }
-    public void setEindTijd(int eindTijd){
-        this.eindTijd = eindTijd;
+    public void setEindTijd(Tijd beginTijd){
+        this.eindTijd = beginTijd.tijdDuratie(activiteit.getDuratie());
     }
 }

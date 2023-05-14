@@ -14,7 +14,7 @@ public class ActiviteitenLijst {
         Routine b = new Routine();
         b.setNaam("Hardlopen");
         b.setDuratie(60);
-        b.setVasteTijd(2);
+        b.setVasteTijd(new Tijd(1700));
         b.setAfbeelding(null);
         activiteitenLijst.add(a);
         activiteitenLijst.add(b);
@@ -38,7 +38,7 @@ public class ActiviteitenLijst {
             System.out.println(i + " Activiteit: " + activiteit.getNaam());
             System.out.println("Duratie: " + activiteit.getDuratie());
             if (activiteit instanceof Routine){
-                System.out.println("Routine tijd: " + ((Routine) activiteit).getVasteTijd());
+                System.out.println("Routine tijd: " + ((Routine) activiteit).getVasteTijd().getTijdString());
             }
             System.out.println();
             i++;

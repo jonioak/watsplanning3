@@ -11,10 +11,10 @@ public class DagLijst {
         Dag a = new Dag();
         a.setDatum(new Date(2023,6,25));
         Activiteit activiteit = ActiviteitenLijst.getInstance().getActiviteitenLijst().get(0);
-        a.createMoment(2,activiteit);
+        a.createMoment(new Tijd(1400),activiteit);
         Dag b = new Dag();
         b.setDatum(new Date(2023,10,1));
-        b.createMoment(30,activiteit);
+        b.createMoment(new Tijd(1800),activiteit);
         dagLijst.add(a);
         dagLijst.add(b);
     }
@@ -26,6 +26,14 @@ public class DagLijst {
 
     public ArrayList<Dag> getDagLijst(){
         return dagLijst;
+    }
+
+    public void printAlleDagen(){
+        int i = 1;
+        for(Dag dag:dagLijst){
+            System.out.println(i + " " + dag.getDatum().getDate() + "/" + dag.getDatum().getMonth());
+            i++;
+        }
     }
 
 
