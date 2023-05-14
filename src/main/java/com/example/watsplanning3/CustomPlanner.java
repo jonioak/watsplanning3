@@ -53,7 +53,7 @@ public class CustomPlanner implements Planner{
         dag.setDatum(date);
         for (Activiteit activiteit : ActiviteitenLijst.getInstance().getActiviteitenLijst()){
             if (activiteit instanceof Routine){
-                dag.createMoment(((Routine) activiteit).getVasteTijd(), activiteit);
+                dag.addMoment(((Routine) activiteit).getVasteTijd(), activiteit);
             }
         }
         dag.editDag();

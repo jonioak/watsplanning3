@@ -11,10 +11,10 @@ public class DagLijst {
         Dag a = new Dag();
         a.setDatum(new Date(2023,6,25));
         Activiteit activiteit = ActiviteitenLijst.getInstance().getActiviteitenLijst().get(0);
-        a.createMoment(new Tijd(1400),activiteit);
+        a.addMoment(new Tijd(1400),activiteit);
         Dag b = new Dag();
         b.setDatum(new Date(2023,10,1));
-        b.createMoment(new Tijd(1800),activiteit);
+        b.addMoment(new Tijd(1800),activiteit);
         dagLijst.add(a);
         dagLijst.add(b);
     }

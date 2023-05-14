@@ -1,4 +1,5 @@
 package com.example.watsplanning3;
+import java.time.LocalTime;
 import java.util.*;
 
 public class MainScreen {
@@ -34,7 +35,9 @@ public class MainScreen {
                     System.out.println("Kan nog niet");
                     break;
                 case 4:
-                    Planning.chooseOptie(scanner);
+                    LocalTime time = LocalTime.now();
+                    int tijd = time.getHour()*100+time.getMinute();
+                    Planning.getInstance().chooseOptie(scanner,tijd);
                     break;
                 default:
                     System.out.println("Ongeldige optie");

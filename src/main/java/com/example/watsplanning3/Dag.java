@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class Dag {
     private Date datum;
     private ArrayList<Moment> momenten = new ArrayList<>();
+
+    private ArrayList<Moment> alleMomenten = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
     public void editDag(){
@@ -24,7 +26,7 @@ public class Dag {
                     printMomenten();
                     break;
                 case 2:
-                    addMoment();
+                    createMoment();
                     break;
                 case 3:
                     System.out.println("Selecteer een moment die je wilt verwijderen");
@@ -47,11 +49,20 @@ public class Dag {
         this.datum = datum;
     }
 
-    public void addMoment(){
+    public void addMoment(Tijd tijd, Activiteit activiteit){
+        Moment moment = new Moment();
+        moment.setActiviteit(activiteit);
+        moment.setBeginTijd(tijd);
+        moment.setEindTijd(tijd);
+        momenten.add(moment);
+//        if (checkMoment(moment))momenten.add(moment);
+    }
+
+    public void createMoment(){
         int optie = 1;
-        System.out.println("Van welke activiteit wil je een moment maken?");
-        ActiviteitenLijst.getInstance().printActiviteiten();
         while (optie!=0){
+            System.out.println("Van welke activiteit wil je een moment maken?");
+            ActiviteitenLijst.getInstance().printActiviteiten();
             System.out.println("0: Vorige scherm");
             optie = scanner.nextInt();
             if(optie==0){
@@ -63,44 +74,42 @@ public class Dag {
             else{
                 Activiteit activiteit = ActiviteitenLijst.getInstance().getActiviteitenLijst().get(optie-1);
                 System.out.println("Hoe laat begint deze activiteit?");
-                int beginTijd = scanner.nextInt();
-                createMoment(new Tijd(beginTijd), activiteit);
-            }
-
-        }
-    }
-
-    public void createMoment(Tijd beginTijd, Activiteit activiteit){
-        if(beginTijd.getMinuut()>59 || beginTijd.getUur()>23){
-            System.out.println("Ongeldige tijd");
-        }
-        else{
-            Moment moment = new Moment();
-            moment.setActiviteit(activiteit);
-            moment.setBeginTijd(beginTijd);
-            moment.setEindTijd(beginTijd);
-            if (checkMoment(moment)){
-                momenten.add(moment);
-            }
-            else{
-                printMomenten();
-                System.out.println("Moment overlapt met een andere moment(en)");
-                System.out.println("Van welke activiteit wil je een moment maken?");
+                int invoer = scanner.nextInt();
+                Tijd beginTijd = new Tijd(invoer);
+                Moment moment = new Moment();
+                moment.setActiviteit(activiteit);
+                moment.setBeginTijd(beginTijd);
+                moment.setEindTijd(beginTijd);
+                if (checkMoment(moment)){
+                    momenten.add(moment);
+                }
             }
         }
-
     }
 
     public boolean checkMoment(Moment moment){
+        if(moment.getBeginTijd().getMinuut()>59 || moment.getBeginTijd().getUur()>23){
+            System.out.println("Ongeldige tijd");
+            return false;
+        }
         for (Moment moments : momenten){
             if(moment.getBeginTijd().getTijd() >= moments.getBeginTijd().getTijd() && moment.getBeginTijd().getTijd() <= moments.getEindTijd().getTijd()){
+                System.out.println("Moment overlapt met een andere moment(en)");
                 return false;
             }
             if(moment.getEindTijd().getTijd() >= moments.getBeginTijd().getTijd() && moment.getEindTijd().getTijd() <= moments.getEindTijd().getTijd()){
+                System.out.println("Moment overlapt met een andere moment(en)");
                 return false;
             }
         }
-        return true;
+        for (Activiteit activiteit : ActiviteitenLijst.getInstance().getActiviteitenLijst()){
+            if(moment.getActiviteit().equals(activiteit)){
+                System.out.println("Moment voldoet aan alle eisen");
+                return true;
+            }
+        }
+        System.out.println("Activiteit niet gevonden in activiteitenLijst");
+        return false;
     }
 
     public void printMomenten(){

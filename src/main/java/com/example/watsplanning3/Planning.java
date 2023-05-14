@@ -5,20 +5,27 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Planning {
+    private static Planning instance;
 
-    public static void chooseOptie(Scanner scanner){
+    public static Planning getInstance() {
+        if (instance == null) {
+            instance = new Planning();
+        }
+        return instance;
+    }
+
+    public void chooseOptie(Scanner scanner, int tijd) {
         int option = 1;
-        while(option!=0){
+        while (option != 0) {
             System.out.println("Kies een dag uit");
             DagLijst.getInstance().printAlleDagen();
             System.out.println("0: Vorige scherm");
             option = scanner.nextInt();
-            kiesDag(option);
+            kiesDag(option, tijd);
         }
     }
 
-
-    public static void kiesDag(int option) {
+    public void kiesDag(int option,int tijd) {
         if(option > DagLijst.getInstance().getDagLijst().size() || option<=0){
             System.out.println("Ongeldige dag");
         }
@@ -49,10 +56,25 @@ public class Planning {
             for (j=0; j<planning.length; j++){
                 System.out.println(planning[j]);
             }
+            int afstand = tijdTotMoment(dag, tijd);
+            switch(afstand){
+                case 0:
+                    System.out.println("Dat is nu");
+                    break;
+                case 1:
+                    System.out.println("Dat is best snel al");
+                    break;
+                case 2:
+                    System.out.println("Dat duurt nog een tijdje");
+                    break;
+                case 3:
+                    System.out.println("Dat duurt nog een lange tijd");
+                    break;
+            }
         }
     }
 
-    public static boolean momentCheck(int uur, int minuut, Moment moment){
+    public boolean momentCheck(int uur, int minuut, Moment moment){
         int tijd = uur*100+minuut;
 
         if(moment.getBeginTijd().getTijd() >= tijd && moment.getBeginTijd().getTijd() <= tijd){
@@ -65,5 +87,38 @@ public class Planning {
             return true;
         }
         return false;
+    }
+
+    public int tijdTotMoment(Dag dag,int tijd){
+        for (Moment moment : dag.getMomenten()){
+            if(tijd < moment.getBeginTijd().getTijd()){
+                Tijd y = new Tijd(tijd);
+                int uur = moment.getBeginTijd().getUur() - y.getUur();
+                int minuut = moment.getBeginTijd().getMinuut() - y.getMinuut();
+                if(minuut<0){
+                    uur=uur-1;
+                    minuut = minuut+60;
+                }
+                int x = uur * 100 + minuut;
+                Tijd over = new Tijd(x);
+                System.out.println();
+                System.out.println(over.getTijd());
+                if (over.getUur()<1) {
+                    System.out.println(moment.getActiviteit().getNaam() + " begint over: " + over.getMinuut() + " minuten");
+                }
+                else{
+                    System.out.println(moment.getActiviteit().getNaam() + " begint over: " + over.getUur() + " uur en " + over.getMinuut() + " minuten");
+                }
+
+                if(over.getMinuut()==0)return 0;
+
+                else if(over.getMinuut()<30 && over.getUur()<1) return 1;
+
+                else if(over.getUur()<=2) return 2;
+
+                break;
+            }
+        }
+        return 3;
     }
 }
