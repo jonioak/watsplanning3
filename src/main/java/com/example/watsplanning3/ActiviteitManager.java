@@ -5,8 +5,9 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ActiviteitManager {
-    private ArrayList<Activiteit> activiteitenLijst = ActiviteitenLijst.getInstance().getActiviteitenLijst();
+public class ActiviteitManager implements Optie{
+
+    @Override
     public void chooseOptie(Scanner scanner){
         int optionA = 1;
         while(optionA!=0) {
@@ -70,7 +71,7 @@ public class ActiviteitManager {
         activiteit.setNaam(naam);
         activiteit.setDuratie(duratie);
         activiteit.setAfbeelding(afbeelding);
-        activiteitenLijst.add(activiteit);
+        ActiviteitenLijst.getInstance().getActiviteitenLijst().add(activiteit);
     }
 
     public void createRoutine(String naam, int duratie, Image afbeelding, Tijd vasteTijd){
@@ -80,14 +81,14 @@ public class ActiviteitManager {
         activiteit.setAfbeelding(afbeelding);
 
         activiteit.setVasteTijd(vasteTijd);
-        activiteitenLijst.add(activiteit);
+        ActiviteitenLijst.getInstance().getActiviteitenLijst().add(activiteit);
     }
 
 
     public void deleteActiviteit(int activiteit){
-        if (activiteit <= activiteitenLijst.size()){
-            System.out.println(activiteitenLijst.get(activiteit-1).getNaam() + " is verwijderd");
-            activiteitenLijst.remove(activiteit-1);
+        if (activiteit <= ActiviteitenLijst.getInstance().getActiviteitenLijst().size()){
+            System.out.println(ActiviteitenLijst.getInstance().getActiviteitenLijst().get(activiteit-1).getNaam() + " is verwijderd");
+            ActiviteitenLijst.getInstance().getActiviteitenLijst().remove(activiteit-1);
         }
         else{
             System.out.println("Ongeldige invoer");

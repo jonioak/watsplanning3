@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-public class CustomPlanner implements Planner{
-    private ArrayList<Dag> dagen = DagLijst.getInstance().getDagLijst();
-    private Date datum;
+public class CustomPlanner implements Planner,Optie{
 
+    @Override
     public void chooseOptie(Scanner scanner){
         int option = 1;
         while(option!=0) {
@@ -32,7 +31,7 @@ public class CustomPlanner implements Planner{
                     int dag = scanner.nextInt();
                     if(dag <= DagLijst.getInstance().getDagLijst().size() && dag>0){
                         System.out.println(dag);
-                        DagLijst.getInstance().getDagLijst().get(dag-1).editDag();
+                        DagLijst.getInstance().getDagLijst().get(dag-1).chooseOptie(scanner);
                     }
                     else{
                         System.out.println("Geen geldige dag");
@@ -56,17 +55,7 @@ public class CustomPlanner implements Planner{
                 dag.addMoment(((Routine) activiteit).getVasteTijd(), activiteit);
             }
         }
-        dag.editDag();
+        dag.chooseOptie(scanner);
         DagLijst.getInstance().getDagLijst().add(dag);
-    }
-
-    @Override
-    public Dag getDag() {
-        for(Dag a: dagen){
-            if(dagen.contains(datum)){
-                return a;
-            }
-        }
-        return null;
     }
 }

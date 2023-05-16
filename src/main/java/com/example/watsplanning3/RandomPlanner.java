@@ -11,14 +11,4 @@ public class RandomPlanner implements Planner {
     public void createDag() {
 
     }
-
-    @Override
-    public Dag getDag() {
-        for(Dag a: dagen){
-            if(dagen.contains(datum)){
-                return a;
-            }
-        }
-        return null;
-    }
 }

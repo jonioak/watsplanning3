@@ -3,14 +3,15 @@ package com.example.watsplanning3;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-public class Dag {
+public class Dag implements Optie{
     private Date datum;
     private ArrayList<Moment> momenten = new ArrayList<>();
 
-    private ArrayList<Moment> alleMomenten = new ArrayList<>();
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
 
-    public void editDag(){
+    @Override
+    public void chooseOptie(Scanner scanner){
+        this.scanner = scanner;
         int optie = 1;
         while(optie!=0){
             System.out.println("Kies een optie:");

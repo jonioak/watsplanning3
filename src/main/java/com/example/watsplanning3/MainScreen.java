@@ -2,16 +2,17 @@ package com.example.watsplanning3;
 import java.time.LocalTime;
 import java.util.*;
 
-public class MainScreen {
-    Scanner scanner = new Scanner(System.in);
+public class MainScreen implements Optie{
     ActiviteitManager activiteitManager = new ActiviteitManager();
     CustomPlanner customPlanner = new CustomPlanner();
 
     MainScreen(){
-        chooseOptie();
+        Scanner scanner = new Scanner(System.in);
+        chooseOptie(scanner);
     }
 
-    public void chooseOptie(){
+    @Override
+    public void chooseOptie(Scanner scanner){
         int option = 1;
         while(option!=0){
             System.out.println("Kies een optie:");
@@ -36,8 +37,8 @@ public class MainScreen {
                     break;
                 case 4:
                     LocalTime time = LocalTime.now();
-                    int tijd = time.getHour()*100+time.getMinute();
-                    Planning.getInstance().chooseOptie(scanner,tijd);
+                    Planning.getInstance().setTijd(time.getHour()*100+time.getMinute());
+                    Planning.getInstance().chooseOptie(scanner);
                     break;
                 default:
                     System.out.println("Ongeldige optie");
