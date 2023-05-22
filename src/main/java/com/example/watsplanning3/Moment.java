@@ -23,6 +23,6 @@ public class Moment {
         return eindTijd;
     }
     public void setEindTijd(Tijd beginTijd){
-        this.eindTijd = beginTijd.tijdDuratie(activiteit.getDuratie());
+        this.eindTijd = beginTijd.tijdDuratie(activiteit.getDuratie()-1);
     }
 }

@@ -70,21 +70,7 @@ public class Planning implements Optie{
             for (j=0; j<planning.length; j++){
                 System.out.println(planning[j]);
             }
-            int afstand = tijdTotMoment(dag, tijd);
-            switch(afstand){
-                case 0:
-                    System.out.println("Dat is nu");
-                    break;
-                case 1:
-                    System.out.println("Dat is best snel al");
-                    break;
-                case 2:
-                    System.out.println("Dat duurt nog een tijdje");
-                    break;
-                case 3:
-                    System.out.println("Dat duurt nog een lange tijd");
-                    break;
-            }
+            wanneer(tijdTotMoment(dag, tijd));
         }
     }
 
@@ -101,6 +87,23 @@ public class Planning implements Optie{
             return true;
         }
         return false;
+    }
+
+    public void wanneer(int afstand){
+        switch(afstand){
+            case 0:
+                System.out.println("Dat is nu");
+                break;
+            case 1:
+                System.out.println("Dat is best snel al");
+                break;
+            case 2:
+                System.out.println("Dat duurt nog een tijdje");
+                break;
+            case 3:
+                System.out.println("Dat duurt nog een lange tijd");
+                break;
+        }
     }
 
     public int tijdTotMoment(Dag dag,int tijd){

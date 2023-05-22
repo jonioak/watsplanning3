@@ -1,10 +1,13 @@
 package com.example.watsplanning3;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class ActiviteitenLijst {
     private static ActiviteitenLijst instance;
     private ArrayList<Activiteit> activiteitenLijst = new ArrayList<>();
+    private ArrayList<Activiteit> randomizedList = new ArrayList<>();
 
     ActiviteitenLijst(){
         NormaalActiviteit a = new NormaalActiviteit();
@@ -48,5 +51,15 @@ public class ActiviteitenLijst {
     public static ActiviteitenLijst getInstance() {
         if (instance == null) instance = new ActiviteitenLijst();
         return instance;
+    }
+
+    public void shuffle(){
+        ArrayList<Activiteit> randomizedList = activiteitenLijst;
+        Collections.shuffle(randomizedList);
+        this.randomizedList = randomizedList;
+    }
+    public ArrayList<Activiteit> getRandomizeList() {
+
+        return randomizedList;
     }
 }

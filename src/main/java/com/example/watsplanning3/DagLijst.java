@@ -36,5 +36,14 @@ public class DagLijst {
         }
     }
 
+    public boolean checkDag(Date date){
+        for (Dag dag : dagLijst){
+            if(dag.getDatum().equals(date)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

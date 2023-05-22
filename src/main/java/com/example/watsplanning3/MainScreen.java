@@ -5,6 +5,7 @@ import java.util.*;
 public class MainScreen implements Optie{
     ActiviteitManager activiteitManager = new ActiviteitManager();
     CustomPlanner customPlanner = new CustomPlanner();
+    RandomPlanner randomPlanner = new RandomPlanner();
 
     MainScreen(){
         Scanner scanner = new Scanner(System.in);
@@ -33,7 +34,7 @@ public class MainScreen implements Optie{
                     customPlanner.chooseOptie(scanner);
                     break;
                 case 3:
-                    System.out.println("Kan nog niet");
+                    randomPlanner.chooseOptie(scanner);
                     break;
                 case 4:
                     LocalTime time = LocalTime.now();
