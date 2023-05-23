@@ -48,28 +48,27 @@ class RandomPlannerTest {
         int vasteTijd = 2000;
         routine.setVasteTijd(new Tijd(vasteTijd));
 
-        // act
-
+        // Activiteitlijst
         assertTrue(planner.generateDag(TestA,TestB));
 
         ActiviteitenLijst.getInstance().getActiviteitenLijst().add(activiteit);
         ActiviteitenLijst.getInstance().getActiviteitenLijst().add(routine);
 
-        //assert
-
         assertFalse(planner.generateDag(TestA,TestB));
 
-        // routine test
+        // Activiteit en routine
         assertEquals(vasteTijd,DagLijst.getInstance().getDagLijst().get(0).getMomenten().get(DagLijst.getInstance().getDagLijst().get(0).getMomenten().size()-1).getBeginTijd().getTijd());
+        assertNotEquals(vasteTijd,DagLijst.getInstance().getDagLijst().get(0).getMomenten().get(0).getBeginTijd().getTijd());
 
+
+        // Datum
         assertEquals(new Date(time.getYear(),time.getMonthValue(),time.getDayOfMonth()),DagLijst.getInstance().getDagLijst().get(0).getDatum());
-
 
         assertFalse(planner.generateDag(TestA,TestB));
         time = time.plusDays(1);
         assertEquals(new Date(time.getYear(),time.getMonthValue(),time.getDayOfMonth()),DagLijst.getInstance().getDagLijst().get(1).getDatum());
 
-
+        // Tijd tussen begin en eind tijd
         assertFalse(planner.generateDag(TestA,TestB));
         assertTrue(planner.generateDag(TestA, Test1));
         assertTrue(planner.generateDag(Test2, TestB));
