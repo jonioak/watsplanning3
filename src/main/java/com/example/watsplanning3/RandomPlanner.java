@@ -5,7 +5,7 @@ import java.util.Date;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class RandomPlanner implements Planner, Optie{
+public class RandomPlanner implements Planner{
     private ArrayList<Dag> dagen = DagLijst.getInstance().getDagLijst();
 
     private Tijd beginTijd;
@@ -66,8 +66,8 @@ public class RandomPlanner implements Planner, Optie{
             i++;
         }
         for (Activiteit activiteit : ActiviteitenLijst.getInstance().getActiviteitenLijst()){
-            if (activiteit instanceof Routine){
-                dag.addMoment(((Routine) activiteit).getVasteTijd(), activiteit);
+            if (activiteit.getRoutine()){
+                dag.addMoment(activiteit.getVasteTijd(), activiteit);
             }
         }
         DagLijst.getInstance().getDagLijst().add(dag);

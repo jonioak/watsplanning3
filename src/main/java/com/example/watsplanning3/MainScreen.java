@@ -4,8 +4,8 @@ import java.util.*;
 
 public class MainScreen implements Optie{
     ActiviteitManager activiteitManager = new ActiviteitManager();
-    CustomPlanner customPlanner = new CustomPlanner();
-    RandomPlanner randomPlanner = new RandomPlanner();
+    Planner customPlanner = new CustomPlanner();
+    Planner randomPlanner = new RandomPlanner();
 
     MainScreen(){
         Scanner scanner = new Scanner(System.in);
