@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Planning implements Optie{
     private static Planning instance;
-    private int tijd;
+    public int tijd;
 
     public static Planning getInstance() {
         if (instance == null) {
@@ -129,9 +129,9 @@ public class Planning implements Optie{
 
                 if(over.getMinuut()==0)return 0;
 
-                else if(over.getMinuut()<30 && over.getUur()<1) return 1;
+                else if(over.getMinuut()<=30 && over.getUur()<1) return 1;
 
-                else if(over.getUur()<=2) return 2;
+                else if(over.getUur()<2) return 2;
 
                 break;
             }

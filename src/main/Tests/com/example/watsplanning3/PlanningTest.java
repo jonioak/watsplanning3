@@ -16,16 +16,16 @@ class PlanningTest {
         Dag dagB = new Dag();
         Dag dagC = new Dag();
 
-        int tijd = 2000;
+        int tijd = 0000;
 
         // act
-        dagA.addMoment(new Tijd(2023),ActiviteitenLijst.getInstance().getActiviteitenLijst().get(0));
-        dagB.addMoment(new Tijd(2106),ActiviteitenLijst.getInstance().getActiviteitenLijst().get(0));
-        dagC.addMoment(new Tijd(2354),ActiviteitenLijst.getInstance().getActiviteitenLijst().get(0));
+        dagA.addMoment(new Tijd(0023),ActiviteitenLijst.getInstance().getActiviteitenLijst().get(0));
+        dagB.addMoment(new Tijd(0100),ActiviteitenLijst.getInstance().getActiviteitenLijst().get(0));
+        dagC.addMoment(new Tijd(0200),ActiviteitenLijst.getInstance().getActiviteitenLijst().get(0));
 
         // assert
         assertEquals(planning.tijdTotMoment(dagA,tijd), 1);
-        assertEquals(planning.tijdTotMoment(dagB,tijd), 2);
+        assertEquals(planning.tijdTotMoment(dagB,tijd), 3);
         assertEquals(planning.tijdTotMoment(dagC,tijd), 3);
 
     }
