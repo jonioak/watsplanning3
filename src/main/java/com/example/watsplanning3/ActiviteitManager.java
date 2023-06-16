@@ -14,8 +14,7 @@ public class ActiviteitManager implements Optie{
             System.out.println("Kies een optie:");
             System.out.println("1: Bekijk alle activiteiten");
             System.out.println("2: Creëer activiteit");
-            System.out.println("3: Creëer routine");
-            System.out.println("4: Verwijder activiteit");
+            System.out.println("3: Verwijder activiteit");
             System.out.println("0: Vorige scherm");
             optionA = scanner.nextInt();
             switch (optionA){
@@ -28,30 +27,47 @@ public class ActiviteitManager implements Optie{
                     System.out.println("Naam van activiteit");
                     scanner.nextLine();
                     String naam = scanner.nextLine();
+                    System.out.println("Wat voor soort activiteit is het?\n0: Vorige scherm");
+                    int i = 1;
+                    for (Activiteit activiteit : ActiviteitenLijst.getInstance().getCategorien()){
+                        System.out.println(i+ ": " + activiteit.getCategorie());
+                        i++;
+                    }
+                    int categorie;
+                    while(i!=0){
+                        categorie = scanner.nextInt();
+                        switch (categorie){
+                            case 0:
+                                i = 0;
+                                break;
+                            case 1:
+
+                        }
+
+                        break;
+                    }
+                    if(i==0)break;
+
+
+
                     System.out.println("Duratie van activiteit in minuten");
                     int duratie = scanner.nextInt();
                     Image a = null;
-                    createActiviteit(naam,duratie,a);
-                    break;
-                case 3:
-                    System.out.println("Naam van activiteit");
-                    scanner.nextLine();
-                    naam = scanner.nextLine();
-                    System.out.println("Duratie van activiteit in minuten");
-                    duratie = scanner.nextInt();
-                    a = null;
-                    System.out.println("Vaste tijd van activiteit");
+                    System.out.println("Wil je het een routine maken? \nZo ja, hoe laat wil je dat het begint?\nZo niet, toets 0");
                     while(true){
                         Tijd vasteTijd = new Tijd(scanner.nextInt());
                         if(vasteTijd.getMinuut() < 59 && vasteTijd.getUur() < 23){
-                            createRoutine(naam,duratie,a,vasteTijd);
+                            createActiviteit(naam,duratie,a,vasteTijd);
+                            break;
+                        }
+                        if(vasteTijd.getTijd()==0){
+                            createActiviteit(naam,duratie,a,null);
                             break;
                         }
                         System.out.println("Ongeldig tijdstip");
                     }
-
                     break;
-                case 4:
+                case 3:
                     System.out.println("Selecteer een activeit om te verwijderen");
                     ActiviteitenLijst.getInstance().printActiviteiten();
                     int activiteit = scanner.nextInt();
@@ -64,18 +80,8 @@ public class ActiviteitManager implements Optie{
         }
     }
 
-
-
-    public void createActiviteit(String naam, int duratie, Image afbeelding){
-        NormaalActiviteit activiteit = new NormaalActiviteit();
-        activiteit.setNaam(naam);
-        activiteit.setDuratie(duratie);
-        activiteit.setAfbeelding(afbeelding);
-        ActiviteitenLijst.getInstance().getActiviteitenLijst().add(activiteit);
-    }
-
-    public void createRoutine(String naam, int duratie, Image afbeelding, Tijd vasteTijd){
-        Routine activiteit = new Routine();
+    public void createActiviteit(String naam, int duratie, Image afbeelding, Tijd vasteTijd){
+        Activiteit activiteit = new NormaalActiviteit(vasteTijd);
         activiteit.setNaam(naam);
         activiteit.setDuratie(duratie);
         activiteit.setAfbeelding(afbeelding);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-public class CustomPlanner implements Planner,Optie{
+public class CustomPlanner implements Planner{
 
     @Override
     public void chooseOptie(Scanner scanner){
@@ -51,8 +51,8 @@ public class CustomPlanner implements Planner,Optie{
         Dag dag = new Dag();
         dag.setDatum(date);
         for (Activiteit activiteit : ActiviteitenLijst.getInstance().getActiviteitenLijst()){
-            if (activiteit instanceof Routine){
-                dag.addMoment(((Routine) activiteit).getVasteTijd(), activiteit);
+            if (activiteit.getRoutine()){
+                dag.addMoment(activiteit.getVasteTijd(), activiteit);
             }
         }
         dag.chooseOptie(scanner);

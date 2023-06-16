@@ -8,19 +8,22 @@ public class ActiviteitenLijst {
     private static ActiviteitenLijst instance;
     private ArrayList<Activiteit> activiteitenLijst = new ArrayList<>();
     private ArrayList<Activiteit> randomizedList = new ArrayList<>();
+    private ArrayList<Activiteit> categorien = new ArrayList<>();
 
     ActiviteitenLijst(){
-        NormaalActiviteit a = new NormaalActiviteit();
+        NormaalActiviteit a = new NormaalActiviteit(null);
         a.setNaam("Schoonmaken");
         a.setDuratie(60);
         a.setAfbeelding(null);
-        Routine b = new Routine();
+        Activiteit b = new NormaalActiviteit(new Tijd(1700));
         b.setNaam("Hardlopen");
         b.setDuratie(60);
-        b.setVasteTijd(new Tijd(1700));
         b.setAfbeelding(null);
         activiteitenLijst.add(a);
         activiteitenLijst.add(b);
+
+        categorien.add(new NormaalActiviteit(null));
+        categorien.add(new SportActiviteit(null));
     }
 
     public ArrayList<Activiteit> getActiviteitenLijst() {
@@ -40,8 +43,8 @@ public class ActiviteitenLijst {
         for (Activiteit activiteit : activiteitenLijst) {
             System.out.println(i + " Activiteit: " + activiteit.getNaam());
             System.out.println("Duratie: " + activiteit.getDuratie());
-            if (activiteit instanceof Routine){
-                System.out.println("Routine tijd: " + ((Routine) activiteit).getVasteTijd().getTijdString());
+            if (activiteit.getRoutine()){
+                System.out.println("Routine tijd: " + activiteit.getVasteTijd().getTijdString());
             }
             System.out.println();
             i++;
@@ -61,5 +64,9 @@ public class ActiviteitenLijst {
     public ArrayList<Activiteit> getRandomizeList() {
 
         return randomizedList;
+    }
+
+    public ArrayList<Activiteit> getCategorien() {
+        return categorien;
     }
 }
