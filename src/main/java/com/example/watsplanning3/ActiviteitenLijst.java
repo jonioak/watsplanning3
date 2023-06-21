@@ -1,5 +1,4 @@
 package com.example.watsplanning3;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -15,7 +14,7 @@ public class ActiviteitenLijst {
         a.setNaam("Schoonmaken");
         a.setDuratie(60);
         a.setAfbeelding(null);
-        Activiteit b = new NormaalActiviteit(new Tijd(1700));
+        Activiteit b = new SportActiviteit(new Tijd(1700));
         b.setNaam("Hardlopen");
         b.setDuratie(60);
         b.setAfbeelding(null);
@@ -25,19 +24,9 @@ public class ActiviteitenLijst {
         categorien.add(new NormaalActiviteit(null));
         categorien.add(new SportActiviteit(null));
     }
-
     public ArrayList<Activiteit> getActiviteitenLijst() {
         return activiteitenLijst;
     }
-
-    public void addActiviteit(Activiteit activiteit){
-        activiteitenLijst.add(activiteit);
-    }
-
-    public void deleteActiviteit(Activiteit activiteit){
-        activiteitenLijst.remove(activiteit);
-    }
-
     public void printActiviteiten(){
         int i=1;
         for (Activiteit activiteit : activiteitenLijst) {
@@ -50,22 +39,18 @@ public class ActiviteitenLijst {
             i++;
         }
     }
-
     public static ActiviteitenLijst getInstance() {
         if (instance == null) instance = new ActiviteitenLijst();
         return instance;
     }
-
     public void shuffle(){
         ArrayList<Activiteit> randomizedList = activiteitenLijst;
         Collections.shuffle(randomizedList);
         this.randomizedList = randomizedList;
     }
     public ArrayList<Activiteit> getRandomizeList() {
-
         return randomizedList;
     }
-
     public ArrayList<Activiteit> getCategorien() {
         return categorien;
     }

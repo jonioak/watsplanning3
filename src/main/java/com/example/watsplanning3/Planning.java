@@ -1,8 +1,6 @@
 package com.example.watsplanning3;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class Planning implements Optie{
     private static Planning instance;
@@ -107,36 +105,50 @@ public class Planning implements Optie{
     }
 
     public int tijdTotMoment(Dag dag,int tijd){
+        ArrayList<Moment> momenten = new ArrayList();
+
         for (Moment moment : dag.getMomenten()){
             if(tijd < moment.getBeginTijd().getTijd()){
-                Tijd y = new Tijd(tijd);
-                int uur = moment.getBeginTijd().getUur() - y.getUur();
-                int minuut = moment.getBeginTijd().getMinuut() - y.getMinuut();
-                if(minuut<0){
-                    uur=uur-1;
-                    minuut = minuut+60;
-                }
-                int x = uur * 100 + minuut;
-                Tijd over = new Tijd(x);
-                System.out.println();
-                System.out.println(over.getTijd());
-                if (over.getUur()<1) {
-                    System.out.println(moment.getActiviteit().getNaam() + " begint over: " + over.getMinuut() + " minuten");
-                }
-                else{
-                    System.out.println(moment.getActiviteit().getNaam() + " begint over: " + over.getUur() + " uur en " + over.getMinuut() + " minuten");
-                }
-
-                if(over.getMinuut()==0)return 0;
-
-                else if(over.getMinuut()<=30 && over.getUur()<1) return 1;
-
-                else if(over.getUur()<2) return 2;
-
-                break;
+                momenten.add(moment);
             }
         }
-        return 3;
+        Collections.sort(momenten, new Comparator<Moment>() {
+            @Override
+            public int compare(Moment o1, Moment o2) {
+                int tijd1 = o1.getBeginTijd().getTijd();
+                int tijd2 = o2.getBeginTijd().getTijd();
+
+                return Integer.compare(tijd1, tijd2);
+            }
+        });
+
+        Moment moment = momenten.get(0);
+        if(tijd < moment.getBeginTijd().getTijd()){
+            Tijd y = new Tijd(tijd);
+            int uur = moment.getBeginTijd().getUur() - y.getUur();
+            int minuut = moment.getBeginTijd().getMinuut() - y.getMinuut();
+            if(minuut<0){
+                uur=uur-1;
+                minuut = minuut+60;
+            }
+            int x = uur * 100 + minuut;
+            Tijd over = new Tijd(x);
+            System.out.println();
+            System.out.println(over.getTijd());
+            if (over.getUur()<1) {
+                System.out.println(moment.getActiviteit().getNaam() + " begint over: " + over.getMinuut() + " minuten");
+            }
+            else{
+                System.out.println(moment.getActiviteit().getNaam() + " begint over: " + over.getUur() + " uur en " + over.getMinuut() + " minuten");
+            }
+
+            if(over.getMinuut()==0)return 0;
+
+            else if(over.getMinuut()<=30 && over.getUur()<1) return 1;
+
+            else if(over.getUur()<2) return 2;
+        }
+    return 3;
     }
     public void setTijd(int tijd)
     {

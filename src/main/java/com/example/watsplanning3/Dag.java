@@ -56,7 +56,26 @@ public class Dag implements Optie{
         moment.setBeginTijd(tijd);
         moment.setEindTijd(tijd);
         momenten.add(moment);
-//        if (checkMoment(moment))momenten.add(moment);
+    }
+
+    public Tijd uitvoering(Tijd tijd, Activiteit activiteit){
+        activiteit.uitvoeren();
+        Tijd tijd2;
+        if(activiteit.getVoorbereiding()!=null){
+            addMoment(tijd,activiteit.getVoorbereiding());
+            tijd2 = tijd.tijdDuratie(activiteit.getVoorbereiding().getDuratie());
+            addMoment(tijd2,activiteit);
+            tijd2 = tijd2.tijdDuratie(activiteit.getDuratie());
+        }
+        else{
+            addMoment(tijd,activiteit);
+            tijd2 = tijd.tijdDuratie(activiteit.getDuratie());
+        }
+        if(activiteit.getAfronding()!=null){
+            addMoment(tijd2,activiteit.getAfronding());
+            tijd2 = tijd2.tijdDuratie(activiteit.getAfronding().getDuratie());
+        }
+        return tijd2;
     }
 
     public void createMoment(){
@@ -82,7 +101,7 @@ public class Dag implements Optie{
                 moment.setBeginTijd(beginTijd);
                 moment.setEindTijd(beginTijd);
                 if (checkMoment(moment)){
-                    momenten.add(moment);
+                    uitvoering(beginTijd,activiteit);
                 }
             }
         }

@@ -7,10 +7,8 @@ import java.util.Scanner;
 
 public class RandomPlanner implements Planner{
     private ArrayList<Dag> dagen = DagLijst.getInstance().getDagLijst();
-
     private Tijd beginTijd;
     private Tijd eindTijd;
-
     @Override
     public void chooseOptie(Scanner scanner) {
         int tijd;
@@ -22,24 +20,10 @@ public class RandomPlanner implements Planner{
             System.out.println("Tot hoe laat wilt u uw planning maken?");
             tijd = scanner.nextInt();
             Tijd eindTijd = new Tijd(tijd);
-
             check = generateDag(beginTijd,eindTijd);
-//            if(checkTijd(beginTijd,eindTijd)==3){
-//                this.beginTijd = beginTijd;
-//                this.eindTijd = eindTijd;
-//                generateDag(beginTijd,eindTijd);
-//                break;
-//            }
-//            else if(checkTijd(beginTijd,eindTijd)==1){
-//                System.out.println("Begin tijd moet later zijn dan de eind tijd");
-//            }
-//            else if (checkTijd(beginTijd,eindTijd)==2){
-//                System.out.println("Planning moet minstens 1 uur duren");
-//            }
-
         }
+        createDag();
     }
-
     @Override
     public void createDag() {
         int i=0;
@@ -51,7 +35,6 @@ public class RandomPlanner implements Planner{
         }
         Dag dag = new Dag();
         dag.setDatum(date);
-        //
         Tijd tijd = new Tijd(beginTijd.getTijd());
         ActiviteitenLijst.getInstance().shuffle();
         while(tijd.getTijd() < eindTijd.getTijd()){
@@ -59,26 +42,20 @@ public class RandomPlanner implements Planner{
                 break;
             }
             Tijd tijd2 = new Tijd(tijd.getTijd());
-            dag.addMoment(tijd2,ActiviteitenLijst.getInstance().getRandomizeList().get(i));
-            tijd.setUur(tijd2.tijdDuratie(ActiviteitenLijst.getInstance().getRandomizeList().get(i).getDuratie()).getUur());
-            tijd.setMinuut(tijd2.tijdDuratie(ActiviteitenLijst.getInstance().getRandomizeList().get(i).getDuratie()).getMinuut());
-            // System.out.println(ActiviteitenLijst.getInstance().getRandomizeList().get(i).getNaam());
+            tijd = dag.uitvoering(tijd2,ActiviteitenLijst.getInstance().getRandomizeList().get(i));
             i++;
         }
         for (Activiteit activiteit : ActiviteitenLijst.getInstance().getActiviteitenLijst()){
             if (activiteit.getRoutine()){
-                dag.addMoment(activiteit.getVasteTijd(), activiteit);
+                dag.uitvoering(activiteit.getVasteTijd(), activiteit);
             }
         }
         DagLijst.getInstance().getDagLijst().add(dag);
     }
-
     public boolean generateDag(Tijd beginTijd, Tijd eindTijd){
         if(checkTijd(beginTijd,eindTijd)==3 && ActiviteitenLijst.getInstance().getActiviteitenLijst().size()!=0){
-
             this.beginTijd = beginTijd;
             this.eindTijd = eindTijd;
-            createDag();
             return false;
         }
         else if(checkTijd(beginTijd,eindTijd)==1){

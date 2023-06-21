@@ -1,11 +1,9 @@
 package com.example.watsplanning3;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
 public class CustomPlanner implements Planner{
-
     @Override
     public void chooseOptie(Scanner scanner){
         int option = 1;
@@ -52,7 +50,7 @@ public class CustomPlanner implements Planner{
         dag.setDatum(date);
         for (Activiteit activiteit : ActiviteitenLijst.getInstance().getActiviteitenLijst()){
             if (activiteit.getRoutine()){
-                dag.addMoment(activiteit.getVasteTijd(), activiteit);
+                dag.uitvoering(activiteit.getVasteTijd(), activiteit);
             }
         }
         dag.chooseOptie(scanner);
