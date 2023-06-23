@@ -8,6 +8,10 @@ public class Tijd
         this.uur = tijd / 100;
         this.minuut = tijd % 100;
     }
+    Tijd(int uur, int minuut){
+        this.uur = uur;
+        this.minuut = minuut;
+    }
 
     public Tijd tijdDuratie(int duratie){
         Tijd eindTijd = new Tijd(0);

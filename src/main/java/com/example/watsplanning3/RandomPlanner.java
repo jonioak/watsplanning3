@@ -16,11 +16,15 @@ public class RandomPlanner implements Planner{
         while (check){
             System.out.println("Vanaf hoe laat wilt u beginnen met de planning?");
             tijd = scanner.nextInt();
-            Tijd beginTijd = new Tijd(tijd);
-            System.out.println("Tot hoe laat wilt u uw planning maken?");
-            tijd = scanner.nextInt();
-            Tijd eindTijd = new Tijd(tijd);
-            check = generateDag(beginTijd,eindTijd);
+            TijdMaker beginTijd = new TijdMaker(tijd);
+            if(beginTijd.checkTijd()){
+                System.out.println("Tot hoe laat wilt u uw planning maken?");
+                tijd = scanner.nextInt();
+                TijdMaker eindTijd = new TijdMaker(tijd);
+                if(eindTijd.checkTijd()){
+                    check = generateDag(beginTijd.getTijd(),eindTijd.getTijd());
+                }
+            }
         }
         createDag();
     }
@@ -52,6 +56,7 @@ public class RandomPlanner implements Planner{
         }
         DagLijst.getInstance().getDagLijst().add(dag);
     }
+
     public boolean generateDag(Tijd beginTijd, Tijd eindTijd){
         if(checkTijd(beginTijd,eindTijd)==3 && ActiviteitenLijst.getInstance().getActiviteitenLijst().size()!=0){
             this.beginTijd = beginTijd;
