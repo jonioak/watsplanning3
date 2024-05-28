@@ -32,6 +32,7 @@ public class DagManager implements Optie {
                 printMomenten();
                 int moment = scanner.nextInt();
                 removeMoment(moment);
+                System.out.println("I'm debugging this lol");
             }
         }
     }
@@ -82,10 +83,9 @@ public class DagManager implements Optie {
         if (moment <= dag.getMomenten().size()){
             System.out.println(dag.getMomenten().get(moment-1).getActiviteit().getNaam() + " is verwijderd");
             dag.getMomenten().remove(moment-1);
-            System.out.println("brubrbrubruh");
         }
         else{
-
+            System.out.println("Ongeldige invoer");
         }
     }
 }
